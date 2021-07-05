@@ -1,6 +1,8 @@
+let config = require("../config.json");
+
 let saveUserDetail = (emailId, name) => {
   return new Promise((resolve, reject) => {
-    fetch(`https://bruhh.in:3001/user/saveUserDetail`, {
+    fetch(`${config.production.api}/user/saveUserDetail`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

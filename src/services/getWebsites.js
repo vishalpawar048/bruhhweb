@@ -1,6 +1,8 @@
+let config = require("../config.json");
+
 let getWebsites = (category, type) => {
   return new Promise((resolve, reject) => {
-    fetch("https://bruhh.in:3001/products/getWebsites", {
+    fetch(config.production.api + "/products/getWebsites", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

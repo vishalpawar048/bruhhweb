@@ -1,6 +1,8 @@
+let config = require("../config.json");
+
 let getProductById = (id) => {
   return new Promise((resolve, reject) => {
-    fetch("https://bruhh.in:3001/products/getProductById", {
+    fetch(config.production.api + "/products/getProductById", {
       method: "post",
       headers: {
         'Content-Type': 'application/json',
@@ -22,7 +24,7 @@ let getProductById = (id) => {
 
 let getWebsiteDetails = (website) => {
   return new Promise((resolve, reject) => {
-    fetch("https://bruhh.in:3001/products/getWebsiteDetails", {
+    fetch(config.production.api + "/products/getWebsiteDetails", {
       method: "post",
       headers: {
         'Content-Type': 'application/json',
@@ -44,7 +46,7 @@ let getWebsiteDetails = (website) => {
 
 let deleteProductById = (id) => {
   return new Promise((resolve, reject) => {
-    fetch("https://bruhh.in:3001/products/deleteProduct", {
+    fetch(config.production.api + "/products/deleteProduct", {
       method: "post",
       headers: {
         'Content-Type': 'application/json',

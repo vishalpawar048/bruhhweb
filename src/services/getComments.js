@@ -1,6 +1,9 @@
+
+let config = require("../config.json");
+
 let postWebsiteComments = (obj) => {
   return new Promise((resolve, reject) => {
-    fetch("https://bruhh.in:3001/comments/addWebsiteComment", {
+    fetch(config.production.api + "/comments/addWebsiteComment", {
       method: "post",
       headers: {
         'Content-Type': 'application/json',
@@ -29,7 +32,7 @@ let postWebsiteComments = (obj) => {
 
 let postProductComments = (obj) => {
   return new Promise((resolve, reject) => {
-    fetch("https://bruhh.in:3001/comments/addProductComment", {
+    fetch(config.production.api + "/comments/addProductComment", {
       method: "post",
       headers: {
         'Content-Type': 'application/json',
@@ -57,7 +60,7 @@ let postProductComments = (obj) => {
 
 let getProductComments = (productId) => {
   return new Promise((resolve, reject) => {
-    fetch("https://bruhh.in:3001/comments/getProductComments", {
+    fetch(config.production.api + "/comments/getProductComments", {
       method: "post",
       headers: {
         'Content-Type': 'application/json',
@@ -67,7 +70,7 @@ let getProductComments = (productId) => {
         productId: productId,
       }),
     })
-    .then((results) => results.json())
+      .then((results) => results.json())
       .then((data) => {
         resolve(data);
       })
@@ -79,7 +82,7 @@ let getProductComments = (productId) => {
 
 let getWebsiteComments = (website) => {
   return new Promise((resolve, reject) => {
-    fetch("https://bruhh.in:3001/comments/getWebsiteComments", {
+    fetch(config.production.api + "/comments/getWebsiteComments", {
       method: "post",
       headers: {
         'Content-Type': 'application/json',
@@ -89,7 +92,7 @@ let getWebsiteComments = (website) => {
         website: website,
       }),
     })
-    .then((results) => results.json())
+      .then((results) => results.json())
       .then((data) => {
         resolve(data);
       })
