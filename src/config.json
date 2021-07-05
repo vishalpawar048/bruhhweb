@@ -1,0 +1,8 @@
+{
+    "production":{
+        "api":"https://bruhh.in/api/"
+    },
+    "local":{
+        "api":"https://bruhh.in/api/"
+    }
+}

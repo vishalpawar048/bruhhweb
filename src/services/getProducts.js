@@ -1,4 +1,5 @@
 import { useEffect, useState, useRef } from "react";
+let config = require("../config.json");
 
 const useGetProducts = (category, type, pageNo, selectedSites, sort) => {
   let [loading, setLoading] = useState(true);
@@ -27,7 +28,7 @@ const useGetProducts = (category, type, pageNo, selectedSites, sort) => {
       setproductsArray([]);
       pageNo = 0;
     }
-    fetch("https://bruhh.in:3001/products/getProductsByCategory", {
+    fetch(config.production.api +"/products/getProductsByCategory", {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

@@ -1,6 +1,8 @@
+let config = require("../config.json");
+
 let getWishList = (email) => {
   return new Promise((resolve, reject) => {
-    fetch(`https://bruhh.in:3001/wishlist/getWishlist/${email}`, {
+    fetch(`${config.production.api}/wishlist/getWishlist/${email}`, {
       method: "get",
       headers: { "Content-Type": "application/json" },
     })
@@ -16,7 +18,7 @@ let getWishList = (email) => {
 
 let addToWishlist = (emailId, productId) => {
   return new Promise((resolve, reject) => {
-    fetch(`https://bruhh.in:3001/wishlist/addToWishlist`, {
+    fetch(`${config.production.api}/wishlist/addToWishlist`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
@@ -37,7 +39,7 @@ let addToWishlist = (emailId, productId) => {
 let removefromWishlist = (emailId, productId) => {
   return new Promise((resolve, reject) => {
     //   fetch("https://bruhh.in:3001/products/getWebsites", {
-    fetch(`https://bruhh.in:3001/wishlist/removefromWishlist`, {
+    fetch(`${config.production.api}/wishlist/removefromWishlist`, {
       method: "post",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
