@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+
+<url>
+   <loc>https://www.bruhh.in/</loc>
+   <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+   <changefreq>monthly</changefreq>
+   <priority>1.0</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/men</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/women</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/gifts</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/men/shirts</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/women/t-shirts</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/men/t-shirts</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/men/bags</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/women/tops</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/men/shoes</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/women/shoes</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/men/jacket-hoodies</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+<url>
+  <loc>https://www.bruhh.in/products/women/jacket-hoodies</loc>
+  <lastmod>2021-04-25T04:03:38+00:00</lastmod>
+  <changefreq>weekly</changefreq>
+  <priority>0.5</priority>
+</url>
+
+</urlset>
