@@ -21,7 +21,7 @@ const CarouselBanners = (props) => {
     } else if (width < 1000) {
       return "550";
     } else if (width < 1200) {
-      return "550";
+      return "600";
     } else {
       return "700";
     }

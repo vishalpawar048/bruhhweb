@@ -1,8 +1,6 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
-
 import { FcLike } from "react-icons/fc";
 import { AiOutlineHeart } from "react-icons/ai";
-
 import { Link } from "react-router-dom";
 import {
   ProductsContainer,
@@ -51,7 +49,6 @@ const Products = (props) => {
   let prevCatagory = usePrevious(category);
   let prevType = usePrevious(type);
 
-
   let { loading, hasMoreProduct, productsArray } = useGetProducts(
     category,
     type,
@@ -59,7 +56,6 @@ const Products = (props) => {
     selectedSites,
     sort
   );
-
 
   const deleteProduct = async (id) => {
     let res = await deleteProductById(id);
