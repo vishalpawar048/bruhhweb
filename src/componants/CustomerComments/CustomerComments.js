@@ -8,7 +8,7 @@ import Tab from "@material-ui/core/Tab";
 import Typography from "@material-ui/core/Typography";
 import Zoom from "@material-ui/core/Zoom";
 import Fab from "@material-ui/core/Fab";
-import AddIcon from "@material-ui/icons/Add";
+import EditIcon from "@material-ui/icons/Edit";
 import { green } from "@material-ui/core/colors";
 import Box from "@material-ui/core/Box";
 
@@ -102,20 +102,19 @@ export default function CustomerComments(props) {
     {
       color: "primary",
       className: classes.fab,
-      icon: <AddIcon />,
+      icon: <EditIcon />,
       label: "Add Website Review",
     },
 
     {
       color: "primary",
       className: classes.fab,
-      icon: <AddIcon />,
+      icon: <EditIcon />,
       label: "Add Product Review",
     },
   ];
 
   let handleClick = (label) => {
-    console.log(">>>>>>>>>>>>>emailId", emailId);
     if (emailId) {
       if (label === fabs[0].label) {
         setOpenCxWebsiteRatingModal(true);
