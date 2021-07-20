@@ -23,7 +23,7 @@ const CarouselBanners = (props) => {
     } else if (width < 1200) {
       return "600";
     } else {
-      return "700";
+      return "780";
     }
   }
   return (
@@ -60,7 +60,7 @@ const CarouselBanners = (props) => {
           </Link>
         </Carousel.Item>
         <Carousel.Item>
-        <Link to="/products/gifts">
+          <Link to="/products/gifts">
             <ImgContainer>
               <img
                 className="d-block w-100"
