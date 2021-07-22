@@ -41,8 +41,26 @@ import {
 } from "../../services/wishlist";
 
 import Rating from "@material-ui/lab/Rating";
+import { makeStyles } from '@material-ui/core/styles';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 
 import CustomerComments from "../CustomerComments/CustomerComments";
+
+const useStyles = makeStyles((theme) => ({
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #ec407a',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+}));
 
 const ProductDescription = (props) => {
   let [product, setproduct] = useState("");
@@ -51,11 +69,9 @@ const ProductDescription = (props) => {
   const [loginModal, setLoginModal] = useState(false);
   const [wishlist, setWishlist] = useState([]);
   let emailId = localStorage.getItem("email");
-  const [width, setWidth] = React.useState(window.innerWidth);
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const classes = useStyles();
 
-  const updateWidthAndHeight = () => {
-    setWidth(window.innerWidth);
-  };
 
   useEffect(() => {
     async function getProduct(id) {
@@ -76,9 +92,8 @@ const ProductDescription = (props) => {
   const getDate = (date) => {
     if (date) {
       let d = new Date(date);
-      return `${d.getDate()}/${
-        d.getMonth() + 1
-      }/${d.getFullYear()}, ${d.getHours()}:${d.getMinutes()}`;
+      return `${d.getDate()}/${d.getMonth() + 1
+        }/${d.getFullYear()}, ${d.getHours()}:${d.getMinutes()}`;
     }
   };
   useEffect(() => {
@@ -110,175 +125,208 @@ const ProductDescription = (props) => {
         setWishlist([...wishlist]);
         try {
           addToWishlist(emailId, productId);
-        } catch (error) {}
+        } catch (error) { }
       }
     } else {
       setLoginModal(true);
     }
   };
 
-  function getHeight(width) {
-    if (width < 420) {
-      return "550";
-    } else if (width < 600) {
-      return "200";
-    } else if (width < 800) {
-      return "260";
-    } else if (width < 900) {
-      return "320";
-    } else {
-      return "450";
-    }
+  function handleFeedbackmodal() {
+    setShowFeedbackModal(true)
   }
 
+
+  function handleClose() {
+    setShowFeedbackModal(false)
+  }
+
+  // function getHeight(width) {
+  //   if (width < 420) {
+  //     return "550";
+  //   } else if (width < 600) {
+  //     return "200";
+  //   } else if (width < 800) {
+  //     return "260";
+  //   } else if (width < 900) {
+  //     return "320";
+  //   } else {
+  //     return "450";
+  //   }
+  // }
+
+
+
   return (
-      <ProductContainer>
-        {loginModal ? (
-          <LoginModal
-            setLoginModal={setLoginModal}
-            openModal={true}
-            model={true}
-          />
-        ) : null}
-        {/* {loading ? (
+    <ProductContainer>
+      {loginModal ? (
+        <LoginModal
+          setLoginModal={setLoginModal}
+          openModal={true}
+          model={true}
+        />
+      ) : null}
+      {/* {loading ? (
           <ProductsHeadingContainer width={width}>
             <ProductsHeading> Loading...</ProductsHeading>
           </ProductsHeadingContainer>
         ) : null} */}
 
-        <ProductCard>
-          <ImgContainer>
-            <Carousel interval={null} slide={false}>
-              {product
-                ? product.imgUrls.map((img) =>
-                    img ? (
-                      <Carousel.Item key={img}>
-                        <img
-                          className="d-block w-100"
-                          src={img}
-                          alt="First slide"
-                          width={100}
-                          // height={getHeight(width)}
-                        />
-                      </Carousel.Item>
-                    ) : null
-                  )
-                : null}
-            </Carousel>
-          </ImgContainer>
-        </ProductCard>
+      <ProductCard>
+        <ImgContainer>
+          <Carousel interval={null} slide={false}>
+            {product
+              ? product.imgUrls.map((img) =>
+                img ? (
+                  <Carousel.Item key={img}>
+                    <img
+                      className="d-block w-100"
+                      src={img}
+                      alt="First slide"
+                      width={100}
+                    // height={getHeight(width)}
+                    />
+                  </Carousel.Item>
+                ) : null
+              )
+              : null}
+          </Carousel>
+        </ImgContainer>
+      </ProductCard>
 
-        <ProductDetailsContainer>
-          <ProductName>{product.name}</ProductName>
-          <ProductInfoWrapper>
-            <ProductInfo>{product.description}</ProductInfo>
-          </ProductInfoWrapper>
-          <ProductPrice>₹ {product.price} * </ProductPrice>
-          <PriceInfo>
-            Price may vary on the actual website. The above price is as per the
+      <ProductDetailsContainer>
+        <ProductName>{product.name}</ProductName>
+        <ProductInfoWrapper>
+          <ProductInfo>{product.description}</ProductInfo>
+        </ProductInfoWrapper>
+        <ProductPrice>₹ {product.price} * </ProductPrice>
+        <PriceInfo>
+          Price may vary on the actual website. The above price is as per the
             website on {getDate(product.createdAt)}.
           </PriceInfo>
-          <br></br>
+        <br></br>
 
-          <Rating
-            name="read-only"
-            precision={0.5}
-            value={product.rating ? parseFloat(product.rating) : 0}
-            readOnly
-          />
-          <ProductWebsite>{product.website}</ProductWebsite>
+        <Rating
+          name="read-only"
+          precision={0.5}
+          value={product.rating ? parseFloat(product.rating) : 0}
+          readOnly
+        />
+        <ProductWebsite>{product.website}</ProductWebsite>
 
-          <RatingWrapper>
-            <RaningWrapper>
-              <RatingTitle>Website Rating</RatingTitle>
-              <Rating
-                name="read-only"
-                precision={0.5}
-                value={
-                  websiteDetail.overallRating
-                    ? parseFloat(websiteDetail.overallRating)
-                    : 0
-                }
-                readOnly
-              />
-            </RaningWrapper>
+        <RatingWrapper>
+          <RaningWrapper>
+            <RatingTitle>Website Rating</RatingTitle>
+            <Rating
+              name="read-only"
+              precision={0.5}
+              value={
+                websiteDetail.overallRating
+                  ? parseFloat(websiteDetail.overallRating)
+                  : 0
+              }
+              readOnly
+            />
+          </RaningWrapper>
 
-            <RaningWrapper>
-              <RatingTitle>Delivery</RatingTitle>
-              <Rating
-                name="read-only"
-                precision={0.5}
-                value={
-                  websiteDetail.deliveryRating
-                    ? parseFloat(websiteDetail.deliveryRating)
-                    : 0
-                }
-                readOnly
-              />
-            </RaningWrapper>
-            <RaningWrapper>
-              <RatingTitle>Return Policy</RatingTitle>
-              <Rating
-                name="read-only"
-                precision={0.5}
-                value={
-                  websiteDetail.returnPolicy
-                    ? parseFloat(websiteDetail.returnPolicy)
-                    : 0
-                }
-                readOnly
-              />
-            </RaningWrapper>
-            <RaningWrapper>
-              <RatingTitle>Product Quality</RatingTitle>
-              <Rating
-                name="read-only"
-                precision={0.5}
-                value={
-                  websiteDetail.productsQuality
-                    ? parseFloat(websiteDetail.productsQuality)
-                    : 0
-                }
-                readOnly
-              />
-            </RaningWrapper>
-          </RatingWrapper>
+          <RaningWrapper>
+            <RatingTitle>Delivery</RatingTitle>
+            <Rating
+              name="read-only"
+              precision={0.5}
+              value={
+                websiteDetail.deliveryRating
+                  ? parseFloat(websiteDetail.deliveryRating)
+                  : 0
+              }
+              readOnly
+            />
+          </RaningWrapper>
+          <RaningWrapper>
+            <RatingTitle>Return Policy</RatingTitle>
+            <Rating
+              name="read-only"
+              precision={0.5}
+              value={
+                websiteDetail.returnPolicy
+                  ? parseFloat(websiteDetail.returnPolicy)
+                  : 0
+              }
+              readOnly
+            />
+          </RaningWrapper>
+          <RaningWrapper>
+            <RatingTitle>Product Quality</RatingTitle>
+            <Rating
+              name="read-only"
+              precision={0.5}
+              value={
+                websiteDetail.productsQuality
+                  ? parseFloat(websiteDetail.productsQuality)
+                  : 0
+              }
+              readOnly
+            />
+          </RaningWrapper>
+        </RatingWrapper>
 
-          <WebsiteBtnWrapper>
-            <WebsiteBtn as="a" href={product.url} target="_blank">
-              Visit Website
+        <WebsiteBtnWrapper>
+          <WebsiteBtn as="a" onClick={handleFeedbackmodal} target="_blank">
+            Visit Website
             </WebsiteBtn>
-            <WhatsAppBtn>
-              <WhatsappShareButton
-                url={window.location.href}
-                title={"Hey, Check out \n"}
-              >
-                <WhatsappIcon size={32} round={true} />
-              </WhatsappShareButton>
-            </WhatsAppBtn>
-            <LikeBtnWrapper>
-              {wishlist.includes(product._id) ? (
-                <FcLike
-                  size={32}
-                  key={product.id}
-                  onClick={() => handleLikeButton(product._id)}
-                ></FcLike>
-              ) : (
-                <AiOutlineHeart
-                  size={32}
-                  onClick={() => handleLikeButton(product._id)}
-                ></AiOutlineHeart>
-              )}
-            </LikeBtnWrapper>
-          </WebsiteBtnWrapper>
+          <WhatsAppBtn>
+            <WhatsappShareButton
+              url={window.location.href}
+              title={"Hey, Check out \n"}
+            >
+              <WhatsappIcon size={32} round={true} />
+            </WhatsappShareButton>
+          </WhatsAppBtn>
+          <LikeBtnWrapper>
+            {wishlist.includes(product._id) ? (
+              <FcLike
+                size={32}
+                key={product.id}
+                onClick={() => handleLikeButton(product._id)}
+              ></FcLike>
+            ) : (
+              <AiOutlineHeart
+                size={32}
+                onClick={() => handleLikeButton(product._id)}
+              ></AiOutlineHeart>
+            )}
+          </LikeBtnWrapper>
+        </WebsiteBtnWrapper>
 
-          <CustomerComments
-            websiteDetails={websiteDetail}
-            productDetails={product}
-            setLoginModal={setLoginModal}
-          ></CustomerComments>
-        </ProductDetailsContainer>
-      </ProductContainer>
+        <CustomerComments
+          websiteDetails={websiteDetail}
+          productDetails={product}
+          setLoginModal={setLoginModal}
+        ></CustomerComments>
+
+        {
+          showFeedbackModal ? <Modal
+            aria-labelledby="transition-modal-title"
+            aria-describedby="transition-modal-description"
+            className={classes.modal}
+            open={showFeedbackModal}
+            onClose={handleClose}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Fade in={showFeedbackModal}>
+              <div className={classes.paper}>
+                <h2 id="transition-modal-title">Transition modal</h2>
+                <p id="transition-modal-description">react-transition-group animates me.</p>
+              </div>
+            </Fade>
+          </Modal> : null
+        }
+      </ProductDetailsContainer>
+    </ProductContainer>
   );
 };
 
