@@ -1,10 +1,7 @@
 import React from "react";
 import { Carousel } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import {
-  ImgContainer,
-
-} from "./CarouselBannersElement";
+import { ImgContainer } from "./CarouselBannersElement";
 
 import { IMG_LOW, IMG_HIGH } from "../../services/imageUrls";
 
@@ -22,8 +19,10 @@ const CarouselBanners = (props) => {
       return "550";
     } else if (width < 1200) {
       return "600";
-    } else {
+    } else if (width < 1250) {
       return "780";
+    } else {
+      return "680";
     }
   }
   return (
@@ -34,12 +33,10 @@ const CarouselBanners = (props) => {
             <ImgContainer>
               <img
                 className="d-block w-100"
-
                 srcSet={`${IMG_LOW.womenDresses} 500w,
                 ${IMG_HIGH.womenDresses} 1000w
                 `}
                 height={getHeight(props.width)}
-
                 alt="Dresses"
               />
             </ImgContainer>

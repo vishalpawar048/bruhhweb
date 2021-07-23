@@ -3,11 +3,6 @@ import {
   getProductById,
   getWebsiteDetails,
 } from "../../services/getProductById";
-// import Products from "../Products/Products";
-import {
-  ProductsHeading,
-  ProductsHeadingContainer,
-} from "../Products/ProductsElements";
 import { Carousel } from "react-bootstrap";
 import {
   ProductContainer,
@@ -43,6 +38,8 @@ import {
 import Rating from "@material-ui/lab/Rating";
 
 import CustomerComments from "../CustomerComments/CustomerComments";
+import FeedbackModal from "../FeedbackModal/FeedbackModal";
+import ThanksModal from "../FeedbackModal/ThanksModal";
 
 const ProductDescription = (props) => {
   let [product, setproduct] = useState("");
@@ -51,11 +48,9 @@ const ProductDescription = (props) => {
   const [loginModal, setLoginModal] = useState(false);
   const [wishlist, setWishlist] = useState([]);
   let emailId = localStorage.getItem("email");
-  const [width, setWidth] = React.useState(window.innerWidth);
-
-  const updateWidthAndHeight = () => {
-    setWidth(window.innerWidth);
-  };
+  let feedbackGiven = localStorage.getItem("feedback");
+  const [showFeedbackModal, setShowFeedbackModal] = useState(false);
+  const [showThanksModal, setShowThanksModal] = useState(false);
 
   useEffect(() => {
     async function getProduct(id) {
@@ -117,168 +112,182 @@ const ProductDescription = (props) => {
     }
   };
 
-  function getHeight(width) {
-    if (width < 420) {
-      return "550";
-    } else if (width < 600) {
-      return "200";
-    } else if (width < 800) {
-      return "260";
-    } else if (width < 900) {
-      return "320";
-    } else {
-      return "450";
+  const handleWebsiteBtn = (url) =>{
+    if(feedbackGiven){
+      window.open(url, "_blank");
+    }else{
+      setShowFeedbackModal(true)
     }
+   
   }
 
+
   return (
-      <ProductContainer>
-        {loginModal ? (
-          <LoginModal
-            setLoginModal={setLoginModal}
-            openModal={true}
-            model={true}
-          />
-        ) : null}
-        {/* {loading ? (
+    <ProductContainer>
+      {loginModal ? (
+        <LoginModal
+          setLoginModal={setLoginModal}
+          openModal={true}
+          model={true}
+        />
+      ) : null}
+      {/* {loading ? (
           <ProductsHeadingContainer width={width}>
             <ProductsHeading> Loading...</ProductsHeading>
           </ProductsHeadingContainer>
         ) : null} */}
 
-        <ProductCard>
-          <ImgContainer>
-            <Carousel interval={null} slide={false}>
-              {product
-                ? product.imgUrls.map((img) =>
-                    img ? (
-                      <Carousel.Item key={img}>
-                        <img
-                          className="d-block w-100"
-                          src={img}
-                          alt="First slide"
-                          width={100}
-                          // height={getHeight(width)}
-                        />
-                      </Carousel.Item>
-                    ) : null
-                  )
-                : null}
-            </Carousel>
-          </ImgContainer>
-        </ProductCard>
+      <ProductCard>
+        <ImgContainer>
+          <Carousel interval={null} slide={false}>
+            {product
+              ? product.imgUrls.map((img) =>
+                  img ? (
+                    <Carousel.Item key={img}>
+                      <img
+                        className="d-block w-100"
+                        src={img}
+                        alt="First slide"
+                        width={100}
+                        // height={getHeight(width)}
+                      />
+                    </Carousel.Item>
+                  ) : null
+                )
+              : null}
+          </Carousel>
+        </ImgContainer>
+      </ProductCard>
 
-        <ProductDetailsContainer>
-          <ProductName>{product.name}</ProductName>
-          <ProductInfoWrapper>
-            <ProductInfo>{product.description}</ProductInfo>
-          </ProductInfoWrapper>
-          <ProductPrice>₹ {product.price} * </ProductPrice>
-          <PriceInfo>
-            Price may vary on the actual website. The above price is as per the
-            website on {getDate(product.createdAt)}.
-          </PriceInfo>
-          <br></br>
+      <ProductDetailsContainer>
+        <ProductName>{product.name}</ProductName>
+        <ProductInfoWrapper>
+          <ProductInfo>{product.description}</ProductInfo>
+        </ProductInfoWrapper>
+        <ProductPrice>₹ {product.price} * </ProductPrice>
+        <PriceInfo>
+          Price may vary on the actual website. The above price is as per the
+          website on {getDate(product.createdAt)}.
+        </PriceInfo>
+        <br></br>
 
-          <Rating
-            name="read-only"
-            precision={0.5}
-            value={product.rating ? parseFloat(product.rating) : 0}
-            readOnly
+        <Rating
+          name="read-only"
+          precision={0.5}
+          value={product.rating ? parseFloat(product.rating) : 0}
+          readOnly
+        />
+        <ProductWebsite>{product.website}</ProductWebsite>
+
+        <RatingWrapper>
+          <RaningWrapper>
+            <RatingTitle>Website Rating</RatingTitle>
+            <Rating
+              name="read-only"
+              precision={0.5}
+              value={
+                websiteDetail.overallRating
+                  ? parseFloat(websiteDetail.overallRating)
+                  : 0
+              }
+              readOnly
+            />
+          </RaningWrapper>
+
+          <RaningWrapper>
+            <RatingTitle>Delivery</RatingTitle>
+            <Rating
+              name="read-only"
+              precision={0.5}
+              value={
+                websiteDetail.deliveryRating
+                  ? parseFloat(websiteDetail.deliveryRating)
+                  : 0
+              }
+              readOnly
+            />
+          </RaningWrapper>
+          <RaningWrapper>
+            <RatingTitle>Return Policy</RatingTitle>
+            <Rating
+              name="read-only"
+              precision={0.5}
+              value={
+                websiteDetail.returnPolicy
+                  ? parseFloat(websiteDetail.returnPolicy)
+                  : 0
+              }
+              readOnly
+            />
+          </RaningWrapper>
+          <RaningWrapper>
+            <RatingTitle>Product Quality</RatingTitle>
+            <Rating
+              name="read-only"
+              precision={0.5}
+              value={
+                websiteDetail.productsQuality
+                  ? parseFloat(websiteDetail.productsQuality)
+                  : 0
+              }
+              readOnly
+            />
+          </RaningWrapper>
+        </RatingWrapper>
+
+        <WebsiteBtnWrapper>
+          <WebsiteBtn
+            as="a"
+            onClick={() => handleWebsiteBtn(product.url)}
+            target="_blank"
+          >
+            Visit Website
+          </WebsiteBtn>
+          <WhatsAppBtn>
+            <WhatsappShareButton
+              url={window.location.href}
+              title={"Hey, Check out \n"}
+            >
+              <WhatsappIcon size={32} round={true} />
+            </WhatsappShareButton>
+          </WhatsAppBtn>
+          <LikeBtnWrapper>
+            {wishlist.includes(product._id) ? (
+              <FcLike
+                size={32}
+                key={product.id}
+                onClick={() => handleLikeButton(product._id)}
+              ></FcLike>
+            ) : (
+              <AiOutlineHeart
+                size={32}
+                onClick={() => handleLikeButton(product._id)}
+              ></AiOutlineHeart>
+            )}
+          </LikeBtnWrapper>
+        </WebsiteBtnWrapper>
+
+        <CustomerComments
+          websiteDetails={websiteDetail}
+          productDetails={product}
+          setLoginModal={setLoginModal}
+        ></CustomerComments>
+
+        {showFeedbackModal ? (
+          <FeedbackModal
+            setShowFeedbackModal={setShowFeedbackModal}
+            setShowThanksModal={setShowThanksModal}
           />
-          <ProductWebsite>{product.website}</ProductWebsite>
+        ) : null}
 
-          <RatingWrapper>
-            <RaningWrapper>
-              <RatingTitle>Website Rating</RatingTitle>
-              <Rating
-                name="read-only"
-                precision={0.5}
-                value={
-                  websiteDetail.overallRating
-                    ? parseFloat(websiteDetail.overallRating)
-                    : 0
-                }
-                readOnly
-              />
-            </RaningWrapper>
-
-            <RaningWrapper>
-              <RatingTitle>Delivery</RatingTitle>
-              <Rating
-                name="read-only"
-                precision={0.5}
-                value={
-                  websiteDetail.deliveryRating
-                    ? parseFloat(websiteDetail.deliveryRating)
-                    : 0
-                }
-                readOnly
-              />
-            </RaningWrapper>
-            <RaningWrapper>
-              <RatingTitle>Return Policy</RatingTitle>
-              <Rating
-                name="read-only"
-                precision={0.5}
-                value={
-                  websiteDetail.returnPolicy
-                    ? parseFloat(websiteDetail.returnPolicy)
-                    : 0
-                }
-                readOnly
-              />
-            </RaningWrapper>
-            <RaningWrapper>
-              <RatingTitle>Product Quality</RatingTitle>
-              <Rating
-                name="read-only"
-                precision={0.5}
-                value={
-                  websiteDetail.productsQuality
-                    ? parseFloat(websiteDetail.productsQuality)
-                    : 0
-                }
-                readOnly
-              />
-            </RaningWrapper>
-          </RatingWrapper>
-
-          <WebsiteBtnWrapper>
-            <WebsiteBtn as="a" href={product.url} target="_blank">
-              Visit Website
-            </WebsiteBtn>
-            <WhatsAppBtn>
-              <WhatsappShareButton
-                url={window.location.href}
-                title={"Hey, Check out \n"}
-              >
-                <WhatsappIcon size={32} round={true} />
-              </WhatsappShareButton>
-            </WhatsAppBtn>
-            <LikeBtnWrapper>
-              {wishlist.includes(product._id) ? (
-                <FcLike
-                  size={32}
-                  key={product.id}
-                  onClick={() => handleLikeButton(product._id)}
-                ></FcLike>
-              ) : (
-                <AiOutlineHeart
-                  size={32}
-                  onClick={() => handleLikeButton(product._id)}
-                ></AiOutlineHeart>
-              )}
-            </LikeBtnWrapper>
-          </WebsiteBtnWrapper>
-
-          <CustomerComments
-            websiteDetails={websiteDetail}
-            productDetails={product}
-            setLoginModal={setLoginModal}
-          ></CustomerComments>
-        </ProductDetailsContainer>
-      </ProductContainer>
+        {showThanksModal ? (
+          <ThanksModal
+            setShowThanksModal={setShowThanksModal}
+            url={product.url}
+          />
+        ) : null}
+      </ProductDetailsContainer>
+    </ProductContainer>
   );
 };
 
