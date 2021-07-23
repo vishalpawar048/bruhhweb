@@ -186,7 +186,7 @@ const ProductDescription = (props) => {
               name="read-only"
               precision={0.5}
               value={
-                websiteDetail.overallRating
+                websiteDetail && websiteDetail.overallRating
                   ? parseFloat(websiteDetail.overallRating)
                   : 0
               }
@@ -200,7 +200,7 @@ const ProductDescription = (props) => {
               name="read-only"
               precision={0.5}
               value={
-                websiteDetail.deliveryRating
+                websiteDetail && websiteDetail.deliveryRating
                   ? parseFloat(websiteDetail.deliveryRating)
                   : 0
               }
@@ -213,7 +213,7 @@ const ProductDescription = (props) => {
               name="read-only"
               precision={0.5}
               value={
-                websiteDetail.returnPolicy
+                websiteDetail && websiteDetail.returnPolicy
                   ? parseFloat(websiteDetail.returnPolicy)
                   : 0
               }
@@ -226,7 +226,7 @@ const ProductDescription = (props) => {
               name="read-only"
               precision={0.5}
               value={
-                websiteDetail.productsQuality
+                websiteDetail && websiteDetail.productsQuality
                   ? parseFloat(websiteDetail.productsQuality)
                   : 0
               }
