@@ -75,7 +75,7 @@ let getProductComments = (productId) => {
         resolve(data);
       })
       .catch((e) => {
-        reject(e);
+        // reject(e);
       });
   });
 };
@@ -98,8 +98,33 @@ let getWebsiteComments = (website) => {
       })
       .catch((e) => {
         if (e) {
-          console.log(e)
+          // console.log(e)
         }
+        // reject(e);
+      });
+  });
+};
+
+
+let userFeedback = (obj) => {
+  return new Promise((resolve, reject) => {
+    fetch(config.production.api + "/comments/userFeedback", {
+      method: "post",
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify({
+        rating: obj.rating,
+        feedback: obj.feedback,
+        liked: obj.liked,
+      }),
+    })
+      .then((results) => results)
+      .then((data) => {
+        resolve(data);
+      })
+      .catch((e) => {
         // reject(e);
       });
   });
@@ -110,4 +135,5 @@ module.exports = {
   postProductComments,
   getProductComments,
   getWebsiteComments,
+  userFeedback
 };

@@ -3,11 +3,11 @@ import { makeStyles } from "@material-ui/core/styles";
 import Rating from "@material-ui/lab/Rating";
 
 const useStyles = makeStyles({
-  root: {
-    width: 200,
-    display: "flex",
-    alignItems: "center",
-  },
+  // root: {
+  //   width: 200,
+  //   display: "flex",
+  //   alignItems: "center",
+  // },
 });
 
 export default function HoverRating(props) {
